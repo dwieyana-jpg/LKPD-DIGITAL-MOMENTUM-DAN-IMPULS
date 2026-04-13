@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LKPD Digital - Momentum & Impuls</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f8;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #27ae60;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #219150;
+    }
+    .result {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>LKPD Digital Fisika</h1>
+  <p>Momentum & Impuls</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Identitas</h2>
+    <input placeholder="Nama" id="nama">
+    <input placeholder="Kelas" id="kelas">
+  </div>
+
+  <div class="card">
+    <h2>Observasi</h2>
+    <p>Kenapa jatuh di bantal lebih aman dibanding lantai?</p>
+    <textarea id="obs"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>Hitung Momentum</h2>
+    <input type="number" id="massa" placeholder="Massa (kg)">
+    <input type="number" id="kecepatan" placeholder="Kecepatan (m/s)">
+    <button onclick="hitungMomentum()">Hitung</button>
+    <div class="result" id="hasilMomentum"></div>
+  </div>
+
+  <div class="card">
+    <h2>Hitung Impuls</h2>
+    <input type="number" id="gaya" placeholder="Gaya (N)">
+    <input type="number" id="waktu" placeholder="Waktu (s)">
+    <button onclick="hitungImpuls()">Hitung</button>
+    <div class="result" id="hasilImpuls"></div>
+  </div>
+
+  <div class="card">
+    <h2>Refleksi</h2>
+    <textarea id="refleksi" placeholder="Apa yang kamu pelajari?"></textarea>
+  </div>
+
+  <div class="card">
+    <button onclick="simpanData()">Simpan Jawaban</button>
+  </div>
+
+</div>
+
+<script>
+function hitungMomentum() {
+  let m = document.getElementById('massa').value;
+  let v = document.getElementById('kecepatan').value;
+  let p = m * v;
+  document.getElementById('hasilMomentum').innerText = 'Momentum = ' + p + ' kg m/s';
+}
+
+function hitungImpuls() {
+  let F = document.getElementById('gaya').value;
+  let t = document.getElementById('waktu').value;
+  let I = F * t;
+  document.getElementById('hasilImpuls').innerText = 'Impuls = ' + I + ' Ns';
+}
+
+function simpanData() {
+  let data = {
+    nama: document.getElementById('nama').value,
+    kelas: document.getElementById('kelas').value,
+    observasi: document.getElementById('obs').value,
+    refleksi: document.getElementById('refleksi').value
+  };
+
+  localStorage.setItem('lkpd', JSON.stringify(data));
+  alert('Jawaban tersimpan di browser!');
+}
+</script>
+
+</body>
+</html>
