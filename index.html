@@ -104,14 +104,28 @@ function nilai(){
 
 function simpan(){
   let data = {
-    nama: nama.value,
-    kelas: kelas.value,
-    observasi: obs.value,
-    refleksi: refleksi.value,
-    nilai: score.innerText
+    nama: document.getElementById('nama').value,
+    kelas: document.getElementById('kelas').value,
+    observasi: document.getElementById('obs').value,
+    refleksi: document.getElementById('refleksi').value,
+    nilai: document.getElementById('score').innerText
   };
+
+  // simpan lokal (backup)
   localStorage.setItem('lkpd_pro', JSON.stringify(data));
-  alert('Tersimpan!');
+
+  // kirim ke Google Sheet
+  fetch("https://script.google.com/macros/s/AKfycbznZDP7GSW2aniYVmCBG-gbhug4x3lcn0umNivn2GtvenzrO_MAOVAXgwinVuARJR97Fw/exec", {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(res => {
+    alert("✅ Jawaban berhasil dikirim ke guru!");
+  })
+  .catch(err => {
+    alert("❌ Gagal kirim, cek koneksi!");
+  });
 }
 </script>
 
